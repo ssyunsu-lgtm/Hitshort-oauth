@@ -1,0 +1,13 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="hitshort-oauth-relay" content="1"><meta name="referrer" content="no-referrer"><title>HitShort 연결 중</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:system-ui,sans-serif;background:#fafafa;color:#111}p{font-size:16px}</style>
+</head><body><p id="m">HitShort로 돌아가는 중…</p><script>
+(function(){
+  var fixed="", q=location.search||'', params=new URLSearchParams(q), state=params.get('state')||'';
+  function fail(){document.getElementById('m').textContent='연결을 이어갈 수 없어요. HitShort에서 다시 시도해주세요.';}
+  try{var part=state.split('.')[1];var s=JSON.parse(atob(part.replace(/-/g,'+').replace(/_/g,'/')));var b=String(s.b||'');}catch(e){return fail();}
+  var ok=/^https:\/\/[a-z0-9-]+\.trycloudflare\.com$/.test(b)||/^http:\/\/(127\.0\.0\.1|localhost):\d{2,5}$/.test(b)||(fixed&&b==='https://'+fixed);
+  if(!ok)return fail();
+  location.replace(b+'/oauth/callback'+q);
+})();
+</script></body></html>
